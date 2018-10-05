@@ -11,7 +11,7 @@ nconf.file(nconf.get("conf"));
 const server = express();
 server.use(morgan("dev"));
 
-server.get("/ping", (req, res) => {
+server.get("/ping", (_, res) => {
     res.status(httpStatus.OK).json({
         "status": "green",
         "version": pkg.version
