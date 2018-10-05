@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "lint": "eslint .",
-    "start-dev": "npm run lint && SET PORT=6000 && node src/server.js",
-    "test": "npm run lint && mocha test/**/*.js"
+    "start-dev": "npm install && npm run lint && SET PORT=6000 && node src/server.js",
+    "test": "npm install && npm run lint && mocha test/**/*.js"
   },
   "repository": {
     "type": "git",

@@ -2,12 +2,13 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const httpStatus = require("http-status");
 
 const app = express();
 app.use(morgan("dev"));
 
 app.get("/hello/:name", (req, res) => {
-    res.status(200).json({"hello": req.param.name});
+    res.status(httpStatus.OK).json({"hello": req.params.name});
 });
 
 const port = process.env.PORT || 5678;
