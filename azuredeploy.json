@@ -1,0 +1,96 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "webAppName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "webAppDisplayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environments": {
+      "defaultValue": [
+        "Dev",
+        "Pre"
+      ],
+      "type": "array",
+      "metadata": {
+        "description": "Array with the names for the environment slots"
+      }
+    }
+  },
+    "resources": [
+      {
+        "name": "[parameters('webAppName')]",
+        "type": "Microsoft.Web/serverfarms",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2015-08-01",
+        "sku": {
+          "name": "S1"
+        },
+        "dependsOn": [],
+        "tags": {
+          "displayName": "[concat(parameters('webAppDisplayName'), ' App Service Plan')]"
+        },
+        "properties": {
+          "name": "[parameters('webAppName')]",
+          "numberOfWorkers": 1
+        }
+      },
+      {
+        "name": "[parameters('webAppName')]",
+        "type": "Microsoft.Web/sites",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2015-08-01",
+        "dependsOn": [
+          "[resourceId('Microsoft.Web/serverfarms', parameters('webAppName'))]"
+        ],
+        "tags": {
+          "[concat('hidden-related:', resourceId('Microsoft.Web/serverfarms', parameters('webAppName')))]": "Resource",
+          "displayName": "[parameters('webAppDisplayName')]"
+        },
+        "properties": {
+          "name": "[parameters('webAppName')]",
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('webAppName'))]"
+        }
+      },
+      {
+        "name": "redline-product-catalog-query",
+        "type": "Microsoft.Insights/components",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2014-04-01",
+        "dependsOn": [
+          "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+        ],
+        "tags": {
+          "displayName": "[concat(parameters('webAppDisplayName'), ' App Insights')]"
+        },
+        "properties": {
+          "applicationId": "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+        }
+      },
+      {
+        "apiVersion": "2016-08-01",
+        "type": "Microsoft.Web/sites/slots",
+        "name": "[concat(parameters('webAppName'), '/', parameters('environments')[copyIndex()])]",
+        "kind": "app",
+        "location": "[resourceGroup().location]",
+        "comments": "This specifies the web app slots.",
+        "tags": {
+          "displayName": "WebAppSlots"
+        },
+        "properties": {
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('webAppName'))]"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Web/Sites', parameters('webAppName'))]"
+        ],
+        "copy": {
+          "name": "webPortalSlot",
+          "count": "[length(parameters('environments'))]"
+        }
+      }
+    ]
+  }
