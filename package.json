@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "start-dev": "npm install && npm run lint && node src/server.js",
-    "test": "npm install && npm run lint && mocha test/**/*.js"
+    "test": "npm install && npm run lint && mocha test/**/*.js --reporter xunit --reporter-options output=testresults/testresults.xml"
   },
   "repository": {
     "type": "git",
