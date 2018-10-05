@@ -3,21 +3,32 @@
 const express = require("express");
 const morgan = require("morgan");
 const httpStatus = require("http-status");
+const nconf = require("nconf");
+const pkg = require("../package.json");
 
-const app = express();
-app.use(morgan("dev"));
+nconf.argv().env("__");
+nconf.defaults({conf: `${__dirname}/../config.json`});
+nconf.file(nconf.get("conf"));
 
-app.get("/hello/:name", (req, res) => {
-    res.status(httpStatus.OK).json({"hello": req.params.name});
+const server = express();
+server.use(morgan("dev"));
+
+server.get("/ping", (req, res) => {
+    res.status(httpStatus.OK).json(
+        {
+            "status":"green", 
+            "version": pkg.version
+        });
 });
 
-const port = process.env.PORT || 5678;
+const port = nconf.get("port");
 
-app.listen(port, (err) => {                                              
+server.listen(port, (err) => {                                              
     if (err) {                                                           
         return console.log(err);                                         
     }                                                                    
                                                                          
     return console.log(`Server is listening on port ${port}`);
-});                                                                      
-                                                                         
+});
+
+module.exports = server;
