@@ -22,12 +22,14 @@ server.get("/ping", (_, res) => {
 const port = nconf.get("server:port");
 logger.level = nconf.get("logging:level");
 
-server.listen(port, (err) => {
-    if (err) {
-        return logger.log("error", err);
-    }
+if (!module.parent) {
+    server.listen(port, (err) => {
+        if (err) {
+            return logger.log("error", err);
+        }
 
-    return logger.log("info", `Server is listening on port ${port}`);
-});
+        return logger.log("info", `Server is listening on port ${port}`);
+    });
+}
 
 module.exports = server;
