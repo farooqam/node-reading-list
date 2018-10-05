@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const httpStatus = require("http-status");
 const nconf = require("nconf");
 const pkg = require("../package.json");
+const logger = require("winston");
 
 nconf.argv().env("__");
 nconf.defaults({"conf": `${__dirname}/../config.json`});
@@ -18,14 +19,15 @@ server.get("/ping", (_, res) => {
     });
 });
 
-const port = nconf.get("port");
+const port = nconf.get("server:port");
+logger.level = nconf.get("logging:level");
 
 server.listen(port, (err) => {
     if (err) {
-        return console.log(err);
+        return logger.log("error", err);
     }
 
-    return console.log(`Server is listening on port ${port}`);
+    return logger.log("info", `Server is listening on port ${port}`);
 });
 
 module.exports = server;
