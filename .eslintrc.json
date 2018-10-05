@@ -1,0 +1,43 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-const-assign": "error",
+        "no-extra-semi": "error",
+        "semi": "error",
+        "no-fallthrough": "error",
+        "no-empty": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "no-redeclare": "error",
+        "no-this-before-super": "error",
+        "no-undef": "error",
+        "no-unreachable": "error",
+        "no-unused-vars": "error",
+        "no-use-before-define": "error",
+        "constructor-super": "error",
+        "curly": "error",
+        "eqeqeq": "error",
+        "func-names": "error",
+        "valid-typeof": "error"
+    },
+    "overrides": [
+        {
+          "files": [ "test/**/*.js", "src/**/*.js" ],
+          "excludedFiles": "",
+          "rules": {
+            "quotes": ["error", "double", { "avoidEscape": true, "allowTemplateLiterals": true }]
+          }
+        }
+      ]
+}
