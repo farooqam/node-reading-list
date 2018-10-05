@@ -24,7 +24,13 @@
           "excludedFiles": "",
           "rules": {
             "quotes": ["error", "double", { "avoidEscape": true, "allowTemplateLiterals": true }],
-            "no-console": "warn"
+            "no-console": "warn",
+            "semi": "error",
+            "indent": ["error", 4],
+            "key-spacing": "error",
+            "no-trailing-spaces": "error",
+            "strict": "error",
+            "quote-props": "error"
           }
         }
       ]

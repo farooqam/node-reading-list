@@ -1,5 +1,3 @@
-"use strict";
-
 const chai = require("chai");
 const expect = chai.expect;
 const server = require("../src/server");
@@ -11,13 +9,15 @@ chai.use(chaiHttp);
 
 describe("Server - ping", () => {
     it("should return expected response", () => {
-        return chai.request(server)
+        const request = chai.request(server)
             .get("/ping")
             .then((res) => {
                 expect(res.status).to.equal(httpStatus.OK);
                 expect(res.body.status).to.equal("green");
                 expect(res.body.version).to.equal(pkg.version);
             });
+
+        return request;
     });
 });
 
