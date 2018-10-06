@@ -2,11 +2,11 @@ const express = require("express");
 const morgan = require("morgan");
 const httpStatus = require("http-status");
 const nconf = require("nconf");
-const pkg = require("../package.json");
+const pkg = require("./package.json");
 const logger = require("winston");
 
 nconf.argv().env("__");
-nconf.defaults({"conf": `${__dirname}/../config.json`});
+nconf.defaults({"conf": `${__dirname}/config.json`});
 nconf.file(nconf.get("conf"));
 
 const server = express();

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "lint": "eslint .",
-    "start-dev": "npm install && npm run lint && node src/server.js",
+    "start-dev": "npm install && npm run lint && node server.js",
     "test": "npm install && npm run lint && mocha test/**/*.js --reporter xunit --reporter-options output=testresults/testresults.xml"
   },
   "repository": {
