@@ -3,6 +3,6 @@
         "level": "debug"
     },
     "server": {
-        "port":6789
+        "port":3000
     }
 }
