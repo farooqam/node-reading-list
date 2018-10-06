@@ -33,6 +33,7 @@
       {
         "name": "[parameters('webAppName')]",
         "type": "Microsoft.Web/sites",
+        "kind": "app,linux",
         "location": "[resourceGroup().location]",
         "apiVersion": "2015-08-01",
         "dependsOn": [
