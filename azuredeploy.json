@@ -25,6 +25,10 @@
         "properties": {
           "name": "[parameters('webAppName')]",
           "numberOfWorkers": 1
+        },
+        "sku": {
+          "Tier": "Standard",
+          "Name": "S1"
         }
       },
       {
