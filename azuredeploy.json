@@ -15,7 +15,7 @@
       {
         "name": "[parameters('webAppName')]",
         "type": "Microsoft.Web/serverfarms",
-        "kind":"linux",
+        "kind": "linux",
         "location": "[resourceGroup().location]",
         "apiVersion": "2015-08-01",
         "sku": {
@@ -44,7 +44,10 @@
         },
         "properties": {
           "name": "[parameters('webAppName')]",
-          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('webAppName'))]"
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('webAppName'))]",
+          "siteConfig": {
+              "linuxFxVersion": "NODE|8.11"
+          }
         }
       },
       {
