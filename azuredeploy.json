@@ -18,9 +18,6 @@
         "kind": "linux",
         "location": "[resourceGroup().location]",
         "apiVersion": "2015-08-01",
-        "sku": {
-          "name": "S1"
-        },
         "dependsOn": [],
         "tags": {
           "displayName": "[concat(parameters('webAppDisplayName'), ' App Service Plan')]"
@@ -33,7 +30,6 @@
       {
         "name": "[parameters('webAppName')]",
         "type": "Microsoft.Web/sites",
-        "kind": "app,linux",
         "location": "[resourceGroup().location]",
         "apiVersion": "2015-08-01",
         "dependsOn": [
@@ -47,7 +43,7 @@
           "name": "[parameters('webAppName')]",
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('webAppName'))]",
           "siteConfig": {
-              "linuxFxVersion": "NODE|8.11"
+              "linuxFxVersion": "node|8.11"
           }
         }
       },
